@@ -23,12 +23,16 @@ public class BlogNote extends BaseEntity {
 
     public BlogNote() {}
 
-    // public BlogNote(int blogId, String title, String text) {
-    //     this.setBlogId(blogId);
-    //     this.setTitle(title);
-    //     this.setText(text);
-    //     this.setCreatingDate(LocalDate.now());
-    // }
+    public BlogNote(String title, String text, LocalDate creatingDate,
+        int likesAmount, int dislikesAmount, Blog blog, Set<Comment> comments) {
+        this.setTitle(title);
+        this.setText(text);
+        this.setCreatingDate(LocalDate.now());
+        this.setLikesAmount(0);
+        this.setDislikesAmount(0);
+        this.setBlog(blog);
+        this.setComments(comments);
+    }
 
     @Column(name = "title")
     public String getTitle() {

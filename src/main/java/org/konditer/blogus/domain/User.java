@@ -17,19 +17,22 @@ public class User extends BaseEntity {
 
     private Set<Blog> blogs;
     private Set<Comment> comments;
-    private Set<UserSubscribes> subscribes;
+    private Set<UserSubscribe> subscribes;
 
     private static final double DEFAULT_RATING = 1.0;
 
     public User() {}
 
-    // public User(String name, LocalDate birthDate, Set<Blog> blogs) {
-    //     this.setName(name);
-    //     this.setBirthDate(birthDate);
-    //     this.setRegistrationDate(LocalDate.now());
-    //     this.setRating(DEFAULT_RATING);
-    //     this.setBlogs(blogs);
-    // }
+    public User(String name, LocalDate birthDate, LocalDate registrationDate, 
+        Set<Blog> blogs, Set<Comment> comments, Set<UserSubscribe> subscribes) {
+        this.setName(name);
+        this.setBirthDate(birthDate);
+        this.setRegistrationDate(LocalDate.now());
+        this.setRating(DEFAULT_RATING);
+        this.setBlogs(blogs);
+        this.setComments(comments);
+        this.setSubscribes(subscribes);
+    }
 
     @Column(name = "name")
     public String getName() {
@@ -62,7 +65,7 @@ public class User extends BaseEntity {
     }
 
     @OneToMany(mappedBy = "user")
-    public Set<UserSubscribes> getSubscribes() {
+    public Set<UserSubscribe> getSubscribes() {
         return this.subscribes;
     }
 
@@ -90,7 +93,7 @@ public class User extends BaseEntity {
         this.comments = comments;
     }
 
-    public void setSubscribes(Set<UserSubscribes> subscribes) {
+    public void setSubscribes(Set<UserSubscribe> subscribes) {
         this.subscribes = subscribes;
     }
 }

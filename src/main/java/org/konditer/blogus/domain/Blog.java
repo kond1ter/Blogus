@@ -18,20 +18,23 @@ public class Blog extends BaseEntity {
     private double rating;
 
     private User author;
-    private Set<UserSubscribes> subscribes;
+    private Set<UserSubscribe> subscribes;
     private Set<BlogNote> notes;
 
     private static final double DEFAULT_RATING = 1.0;
 
     public Blog() {}
 
-    // public Blog(String name, boolean closed, User author) {
-    //     this.setName(name);
-    //     this.setClosed(closed);
-    //     this.setCreatingDate(LocalDate.now());
-    //     this.setRating(DEFAULT_RATING);
-    //     this.setAuthor(author);
-    // }
+    public Blog(String name, boolean closed, User author, 
+        Set<UserSubscribe> subscribes, Set<BlogNote> notes) {
+        this.setName(name);
+        this.setClosed(closed);
+        this.setCreatingDate(LocalDate.now());
+        this.setRating(DEFAULT_RATING);
+        this.setAuthor(author);
+        this.setSubscribes(subscribes);
+        this.setNotes(notes);
+    }
 
     @Column(name = "name")
     public String getName() {
@@ -54,7 +57,7 @@ public class Blog extends BaseEntity {
     }
 
     @OneToMany(mappedBy = "blog")
-    public Set<UserSubscribes> getSubscribes() {
+    public Set<UserSubscribe> getSubscribes() {
         return this.subscribes;
     }
 
@@ -85,7 +88,7 @@ public class Blog extends BaseEntity {
         this.rating = rating;
     }
 
-    public void setSubscribes(Set<UserSubscribes> subscribes) {
+    public void setSubscribes(Set<UserSubscribe> subscribes) {
         this.subscribes = subscribes;
     }
 

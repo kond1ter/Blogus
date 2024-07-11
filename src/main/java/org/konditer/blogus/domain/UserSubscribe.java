@@ -9,19 +9,19 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity @Table(name = "user_subscribes", schema = "public")
-public class UserSubscribes extends BaseEntity {
+public class UserSubscribe extends BaseEntity {
     private LocalDate subscribingDate;
 
     public User user;
     public Blog blog;
 
-    public UserSubscribes() {}
+    public UserSubscribe() {}
 
-    // public UserSubscribes(int userId, int blogId) {
-    //     this.setUserId(userId);
-    //     this.setBlogId(blogId);
-    //     this.setSubscribingDate(LocalDate.now());
-    // }
+    public UserSubscribe(LocalDate subscribingDate, User user, Blog blog) {
+        this.setSubscribingDate(LocalDate.now());
+        this.setUser(user);
+        this.setBlog(blog);
+    }
 
     @Column(name = "subscribing_date")
     public LocalDate getSubscribingDate() {

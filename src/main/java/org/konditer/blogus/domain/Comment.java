@@ -20,12 +20,15 @@ public class Comment extends BaseEntity {
 
     public Comment() {}
 
-    // public Comment(int userId, int blogId, String text) {
-    //     this.setText(text);
-    //     this.setCreatingDate(LocalDate.now());
-    //     this.setLikesAmount(0);
-    //     this.setDislikesAmount(0);
-    // }
+    public Comment(LocalDate creatingDate, String text, int likesAmount,
+        int dislikesAmount, User author, BlogNote blogNote) {
+        this.setText(text);
+        this.setCreatingDate(LocalDate.now());
+        this.setLikesAmount(0);
+        this.setDislikesAmount(0);
+        this.setAuthor(author);
+        this.setBlogNote(blogNote);
+    }
 
     @Column(name = "creating_date")
     public LocalDate getCreatingDate() {
