@@ -13,6 +13,6 @@ public class Main {
         EntityManager em = emf.createEntityManager();
 
         User user = em.find(User.class, 1);
-        System.out.println("\n" + user.toString());
+        System.out.println("\n" + user.getName());
     }
 }

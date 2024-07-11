@@ -1,10 +1,11 @@
 package org.konditer.blogus.domain;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity @Table(name = "user", schema = "public")
@@ -13,16 +14,22 @@ public class User extends BaseEntity {
     private LocalDate birthDate;
     private LocalDate registrationDate;
     private double rating;
+
+    private Set<Blog> blogs;
+    private Set<Comment> comments;
+    private Set<UserSubscribes> subscribes;
+
     private static final double DEFAULT_RATING = 1.0;
 
     public User() {}
 
-    public User(String name, LocalDate birthDate) {
-        this.setName(name);
-        this.setBirthDate(birthDate);
-        this.setRegistrationDate(LocalDate.now());
-        this.setRating(DEFAULT_RATING);
-    }
+    // public User(String name, LocalDate birthDate, Set<Blog> blogs) {
+    //     this.setName(name);
+    //     this.setBirthDate(birthDate);
+    //     this.setRegistrationDate(LocalDate.now());
+    //     this.setRating(DEFAULT_RATING);
+    //     this.setBlogs(blogs);
+    // }
 
     @Column(name = "name")
     public String getName() {
@@ -44,6 +51,21 @@ public class User extends BaseEntity {
         return this.rating;
     }
 
+    @OneToMany(mappedBy = "author")
+    public Set<Blog> getBlogs() {
+        return this.blogs;
+    }
+
+    @OneToMany(mappedBy = "author")
+    public Set<Comment> getComments() {
+        return this.comments;
+    }
+
+    @OneToMany(mappedBy = "user")
+    public Set<UserSubscribes> getSubscribes() {
+        return this.subscribes;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -60,17 +82,15 @@ public class User extends BaseEntity {
         this.rating = rating;
     }
 
-    public static String formatDate(LocalDate date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        String formattedDate = date.format(formatter);
-        return formattedDate;
+    public void setBlogs(Set<Blog> blogs) {
+        this.blogs = blogs;
     }
 
-    @Override
-    public String toString() {
-        return "name: " + this.getName() + "\t" +
-            "birth date: " + this.getBirthDate() + "\t" +
-            "registration date: " + this.getRegistrationDate() + "\t" +
-            "rating: " + this.getRating();
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public void setSubscribes(Set<UserSubscribes> subscribes) {
+        this.subscribes = subscribes;
     }
 }

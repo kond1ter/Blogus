@@ -1,33 +1,34 @@
 package org.konditer.blogus.domain;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity @Table(name = "blog_note")
 public class BlogNote extends BaseEntity {
-    private int blogId;
     private String title;
     private String text;
     private LocalDate creatingDate;
     private int likesAmount;
     private int dislikesAmount;
 
+    private Blog blog;
+    private Set<Comment> comments;
+
     public BlogNote() {}
 
-    public BlogNote(int blogId, String title, String text) {
-        this.setBlogId(blogId);
-        this.setTitle(title);
-        this.setText(text);
-        this.setCreatingDate(LocalDate.now());
-    }
-
-    @Column(name = "blog_id")
-    public int getBlogId() {
-        return blogId;
-    }
+    // public BlogNote(int blogId, String title, String text) {
+    //     this.setBlogId(blogId);
+    //     this.setTitle(title);
+    //     this.setText(text);
+    //     this.setCreatingDate(LocalDate.now());
+    // }
 
     @Column(name = "title")
     public String getTitle() {
@@ -54,12 +55,19 @@ public class BlogNote extends BaseEntity {
         return dislikesAmount;
     }
 
-    public void setDislikesAmount(int dislikesAmount) {
-        this.dislikesAmount = dislikesAmount;
+    @OneToMany(mappedBy = "blogNote")
+    public Set<Comment> getComments() {
+        return this.comments;
     }
 
-    public void setBlogId(int blogId) {
-        this.blogId = blogId;
+    @ManyToOne
+    @JoinColumn(name = "blog_id", nullable = false)
+    public Blog getBlog() {
+        return this.blog;
+    }
+
+    public void setDislikesAmount(int dislikesAmount) {
+        this.dislikesAmount = dislikesAmount;
     }
 
     public void setTitle(String title) {
@@ -76,5 +84,13 @@ public class BlogNote extends BaseEntity {
 
     public void setLikesAmount(int likesAmount) {
         this.likesAmount = likesAmount;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public void setBlog(Blog blog) {
+        this.blog = blog;
     }
 }

@@ -1,34 +1,37 @@
 package org.konditer.blogus.domain;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity @Table(name = "blog", schema = "public")
 public class Blog extends BaseEntity {
-    private int authorId;
     private String name;
     private boolean closed;
     private LocalDate creatingDate;
     private double rating;
+
+    private User author;
+    private Set<UserSubscribes> subscribes;
+    private Set<BlogNote> notes;
+
     private static final double DEFAULT_RATING = 1.0;
 
     public Blog() {}
 
-    public Blog(int authorId, String name, boolean closed) {
-        this.setAuthorId(authorId);
-        this.setName(name);
-        this.setClosed(closed);
-        this.setCreatingDate(LocalDate.now());
-        this.setRating(DEFAULT_RATING);
-    }
-
-    @Column(name = "author_id")
-    public int getAuthorId() {
-        return this.authorId;
-    }
+    // public Blog(String name, boolean closed, User author) {
+    //     this.setName(name);
+    //     this.setClosed(closed);
+    //     this.setCreatingDate(LocalDate.now());
+    //     this.setRating(DEFAULT_RATING);
+    //     this.setAuthor(author);
+    // }
 
     @Column(name = "name")
     public String getName() {
@@ -50,8 +53,20 @@ public class Blog extends BaseEntity {
         return this.rating;
     }
 
-    public void setAuthorId(int authorId) {
-        this.authorId = authorId;
+    @OneToMany(mappedBy = "blog")
+    public Set<UserSubscribes> getSubscribes() {
+        return this.subscribes;
+    }
+
+    @OneToMany(mappedBy = "blog")
+    public Set<BlogNote> getNotes() {
+        return this.notes;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "author_id", nullable = false)
+    public User getAuthor() {
+        return this.author;
     }
 
     public void setName(String name) {
@@ -70,12 +85,15 @@ public class Blog extends BaseEntity {
         this.rating = rating;
     }
 
-    @Override
-    public String toString() {
-        return "author id: " + this.getAuthorId() +
-            "name: " + this.getName() + 
-            "is closed: " + this.isClosed() + 
-            "creating date: " + this.getCreatingDate() +
-            "rating: " + this.getRating();
+    public void setSubscribes(Set<UserSubscribes> subscribes) {
+        this.subscribes = subscribes;
+    }
+
+    public void setNotes(Set<BlogNote> notes) {
+        this.notes = notes;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 }

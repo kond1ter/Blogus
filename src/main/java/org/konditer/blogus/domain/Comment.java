@@ -4,37 +4,28 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity @Table(name = "comment", schema = "public")
 public class Comment extends BaseEntity {
-    private int userId;
-    private int blogId;
     private LocalDate creatingDate;
     private String text;
     private int likesAmount;
     private int dislikesAmount;
 
+    private User author;
+    private BlogNote blogNote;
+
     public Comment() {}
 
-    public Comment(int userId, int blogId, String text) {
-        this.setUserId(userId);
-        this.setBlogId(blogId);
-        this.setText(text);
-        this.setCreatingDate(LocalDate.now());
-        this.setLikesAmount(0);
-        this.setDislikesAmount(0);
-    }
-
-    @Column(name = "user_id")
-    public int getUserId() {
-        return userId;
-    }
-
-    @Column(name = "blog_id")
-    public int getBlogId() {
-        return blogId;
-    }
+    // public Comment(int userId, int blogId, String text) {
+    //     this.setText(text);
+    //     this.setCreatingDate(LocalDate.now());
+    //     this.setLikesAmount(0);
+    //     this.setDislikesAmount(0);
+    // }
 
     @Column(name = "creating_date")
     public LocalDate getCreatingDate() {
@@ -56,12 +47,16 @@ public class Comment extends BaseEntity {
         return dislikesAmount;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    @ManyToOne
+    @JoinColumn(name = "blog_note_id", nullable = false)
+    public BlogNote getBlogNote() {
+        return this.blogNote;
     }
 
-    public void setBlogId(int blogId) {
-        this.blogId = blogId;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    public User getAuthor() {
+        return this.author;
     }
 
     public void setCreatingDate(LocalDate creadingDate) {
@@ -78,5 +73,13 @@ public class Comment extends BaseEntity {
 
     public void setDislikesAmount(int dislikesAmount) {
         this.dislikesAmount = dislikesAmount;
+    }
+
+    public void setBlogNote(BlogNote blogNote) {
+        this.blogNote = blogNote;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 }
