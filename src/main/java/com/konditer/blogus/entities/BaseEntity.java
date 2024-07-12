@@ -1,4 +1,4 @@
-package org.konditer.blogus.domain;
+package com.konditer.blogus.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;

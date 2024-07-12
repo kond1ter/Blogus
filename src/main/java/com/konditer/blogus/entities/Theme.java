@@ -1,4 +1,4 @@
-package org.konditer.blogus.domain;
+package com.konditer.blogus.entities;
 
 import java.util.Set;
 
