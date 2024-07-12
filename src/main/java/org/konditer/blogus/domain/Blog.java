@@ -18,6 +18,7 @@ public class Blog extends BaseEntity {
     private double rating;
 
     private User author;
+    private Theme theme;
     private Set<UserSubscribe> subscribes;
     private Set<BlogNote> notes;
 
@@ -25,13 +26,14 @@ public class Blog extends BaseEntity {
 
     public Blog() {}
 
-    public Blog(String name, boolean closed, User author, 
+    public Blog(String name, boolean closed, User author, Theme theme,
         Set<UserSubscribe> subscribes, Set<BlogNote> notes) {
         this.setName(name);
         this.setClosed(closed);
         this.setCreatingDate(LocalDate.now());
         this.setRating(DEFAULT_RATING);
         this.setAuthor(author);
+        this.setTheme(theme);
         this.setSubscribes(subscribes);
         this.setNotes(notes);
     }
@@ -72,6 +74,12 @@ public class Blog extends BaseEntity {
         return this.author;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "theme_id", nullable = false)
+    public Theme getTheme() {
+        return this.theme;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -98,5 +106,9 @@ public class Blog extends BaseEntity {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public void setTheme(Theme theme) {
+        this.theme = theme;
     }
 }
