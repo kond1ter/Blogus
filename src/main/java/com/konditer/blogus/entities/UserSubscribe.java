@@ -17,7 +17,7 @@ public class UserSubscribe extends BaseEntity {
 
     public UserSubscribe() {}
 
-    public UserSubscribe(LocalDate subscribingDate, User user, Blog blog) {
+    public UserSubscribe(User user, Blog blog) {
         this.setSubscribingDate(LocalDate.now());
         this.setUser(user);
         this.setBlog(blog);

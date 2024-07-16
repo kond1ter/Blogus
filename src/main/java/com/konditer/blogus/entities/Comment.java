@@ -20,7 +20,7 @@ public class Comment extends BaseEntity {
 
     public Comment() {}
 
-    public Comment(LocalDate creatingDate, String text, int likesAmount,
+    public Comment(String text, int likesAmount,
         int dislikesAmount, User author, BlogNote blogNote) {
         this.setText(text);
         this.setCreatingDate(LocalDate.now());

@@ -1,7 +1,8 @@
 package com.konditer.blogus.entities;
 
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,23 +16,23 @@ public class User extends BaseEntity {
     private LocalDate registrationDate;
     private double rating;
 
-    private Set<Blog> blogs;
-    private Set<Comment> comments;
-    private Set<UserSubscribe> subscribes;
+    private List<Blog> blogs;
+    private List<Comment> comments;
+    private List<UserSubscribe> subscribes;
 
     private static final double DEFAULT_RATING = 1.0;
 
     public User() {}
 
-    public User(String name, LocalDate birthDate, LocalDate registrationDate, 
-        Set<Blog> blogs, Set<Comment> comments, Set<UserSubscribe> subscribes) {
-        this.setName(name);
-        this.setBirthDate(birthDate);
-        this.setRegistrationDate(LocalDate.now());
-        this.setRating(DEFAULT_RATING);
-        this.setBlogs(blogs);
-        this.setComments(comments);
-        this.setSubscribes(subscribes);
+    public User(String name, LocalDate birthDate) {
+
+        this.name = name;
+        this.birthDate = birthDate;
+        this.registrationDate = LocalDate.now();
+        this.rating = DEFAULT_RATING;
+        this.blogs = new ArrayList<>();
+        this.comments = new ArrayList<>();
+        this.subscribes = new ArrayList<>();
     }
 
     @Column(name = "name")
@@ -55,17 +56,17 @@ public class User extends BaseEntity {
     }
 
     @OneToMany(mappedBy = "author")
-    public Set<Blog> getBlogs() {
+    public List<Blog> getBlogs() {
         return this.blogs;
     }
 
     @OneToMany(mappedBy = "author")
-    public Set<Comment> getComments() {
+    public List<Comment> getComments() {
         return this.comments;
     }
 
     @OneToMany(mappedBy = "user")
-    public Set<UserSubscribe> getSubscribes() {
+    public List<UserSubscribe> getSubscribes() {
         return this.subscribes;
     }
 
@@ -85,15 +86,15 @@ public class User extends BaseEntity {
         this.rating = rating;
     }
 
-    public void setBlogs(Set<Blog> blogs) {
+    public void setBlogs(List<Blog> blogs) {
         this.blogs = blogs;
     }
 
-    public void setComments(Set<Comment> comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 
-    public void setSubscribes(Set<UserSubscribe> subscribes) {
+    public void setSubscribes(List<UserSubscribe> subscribes) {
         this.subscribes = subscribes;
     }
 }

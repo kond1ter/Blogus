@@ -23,8 +23,8 @@ public class BlogNote extends BaseEntity {
 
     public BlogNote() {}
 
-    public BlogNote(String title, String text, LocalDate creatingDate,
-        int likesAmount, int dislikesAmount, Blog blog, Set<Comment> comments) {
+    public BlogNote(String title, String text, int likesAmount, 
+        int dislikesAmount, Blog blog, Set<Comment> comments) {
         this.setTitle(title);
         this.setText(text);
         this.setCreatingDate(LocalDate.now());
