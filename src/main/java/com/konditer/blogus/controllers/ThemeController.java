@@ -20,7 +20,8 @@ import com.konditer.blogus.services.ThemeService;
 public class ThemeController {
     
     private ThemeDto mapThemeEntityToThemeDto(Theme theme) {
-        return new ThemeDto(theme.getName());
+        return new ThemeDto(theme.getName(),
+            theme.getCreatedAt(), theme.getUpdatedAt());
     }
 
     private Theme mapThemeDtoToThemeEntity(ThemeDto themeDto) {

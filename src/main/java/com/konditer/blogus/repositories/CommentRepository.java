@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.konditer.blogus.entities.Comment;
 
+
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
     

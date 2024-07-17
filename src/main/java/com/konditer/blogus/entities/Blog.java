@@ -19,8 +19,8 @@ public class Blog extends BaseEntityUpdatable {
 
     private User author;
     private Theme theme;
-    private List<UserSubscribe> subscribes;
-    private List<BlogNote> notes;
+    private List<Subscribe> subscribes;
+    private List<Post> posts;
 
     private static final double DEFAULT_RATING = 1.0;
 
@@ -34,7 +34,7 @@ public class Blog extends BaseEntityUpdatable {
         this.author = author;
         this.theme = theme;
         this.subscribes = new ArrayList<>();
-        this.notes = new ArrayList<>();
+        this.posts = new ArrayList<>();
     }
 
     @Column(name = "name")
@@ -53,13 +53,13 @@ public class Blog extends BaseEntityUpdatable {
     }
 
     @OneToMany(mappedBy = "blog")
-    public List<UserSubscribe> getSubscribes() {
+    public List<Subscribe> getSubscribes() {
         return this.subscribes;
     }
 
     @OneToMany(mappedBy = "blog")
-    public List<BlogNote> getNotes() {
-        return this.notes;
+    public List<Post> getPosts() {
+        return this.posts;
     }
 
     @ManyToOne
@@ -86,12 +86,12 @@ public class Blog extends BaseEntityUpdatable {
         this.rating = rating;
     }
 
-    public void setSubscribes(List<UserSubscribe> subscribes) {
+    public void setSubscribes(List<Subscribe> subscribes) {
         this.subscribes = subscribes;
     }
 
-    public void setNotes(List<BlogNote> notes) {
-        this.notes = notes;
+    public void setPosts(List<Post> notes) {
+        this.posts = notes;
     }
 
     public void setAuthor(User author) {

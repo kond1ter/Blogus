@@ -15,10 +15,9 @@ public class User extends BaseEntityUpdatable {
     private String name;
     private LocalDate birthDate;
     private double rating;
-
     private List<Blog> blogs;
     private List<Comment> comments;
-    private List<UserSubscribe> subscribes;
+    private List<Subscribe> subscribes;
 
     private static final double DEFAULT_RATING = 1.0;
 
@@ -60,7 +59,7 @@ public class User extends BaseEntityUpdatable {
     }
 
     @OneToMany(mappedBy = "user")
-    public List<UserSubscribe> getSubscribes() {
+    public List<Subscribe> getSubscribes() {
         return this.subscribes;
     }
 
@@ -84,7 +83,7 @@ public class User extends BaseEntityUpdatable {
         this.comments = comments;
     }
 
-    public void setSubscribes(List<UserSubscribe> subscribes) {
+    public void setSubscribes(List<Subscribe> subscribes) {
         this.subscribes = subscribes;
     }
 }

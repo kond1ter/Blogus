@@ -1,30 +1,31 @@
 package com.konditer.blogus.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity @Table(name = "comment", schema = "public")
 public class Comment extends BaseEntityUpdatable {
 
     private String text;
-    private int posReactionsAmount;
-    private int negReactionsAmount;
-
     private User author;
-    private BlogNote blogNote;
+    private Post post;
+    private List<CommentReaction> reactions;
 
     public Comment() {}
 
-    public Comment(String text, User author, BlogNote blogNote) {
+    public Comment(String text, User author, Post post) {
         super();
         this.text = text;
-        this.posReactionsAmount = 0;
-        this.negReactionsAmount = 0;
-        this.blogNote = blogNote;
+        this.post = post;
         this.author = author;
+        this.reactions = new ArrayList<>();
     }
 
     @Column(name = "text")
@@ -32,20 +33,15 @@ public class Comment extends BaseEntityUpdatable {
         return text;
     }
 
-    @Column(name = "pos_reactions_amount")
-    public int getPosReactionsAmount() {
-        return this.posReactionsAmount;
-    }
-
-    @Column(name = "neg_reactions_amount")
-    public int getNegReactionsAmount() {
-        return this.negReactionsAmount;
+    @OneToMany(mappedBy = "comment")
+    public List<CommentReaction> getReactions() {
+        return this.reactions;
     }
 
     @ManyToOne
     @JoinColumn(name = "blog_note_id", nullable = false)
-    public BlogNote getBlogNote() {
-        return this.blogNote;
+    public Post getPost() {
+        return this.post;
     }
 
     @ManyToOne
@@ -58,19 +54,15 @@ public class Comment extends BaseEntityUpdatable {
         this.text = text;
     }
 
-    public void setBlogNote(BlogNote blogNote) {
-        this.blogNote = blogNote;
+    public void setPost(Post post) {
+        this.post = post;
     }
 
     public void setAuthor(User author) {
         this.author = author;
     }
 
-    public void setPosReactionsAmount(int posReactionsAmount) {
-        this.posReactionsAmount = posReactionsAmount;
-    }
-
-    public void setNegReactionsAmount(int negReactionsAmount) {
-        this.negReactionsAmount = negReactionsAmount;
+    public void setReactions(List<CommentReaction> reactions) {
+        this.reactions = reactions;
     }
 }

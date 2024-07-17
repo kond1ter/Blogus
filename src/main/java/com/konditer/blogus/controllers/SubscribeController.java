@@ -11,29 +11,29 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.konditer.blogus.dto.UserSubscribeDto;
-import com.konditer.blogus.entities.UserSubscribe;
+import com.konditer.blogus.dto.SubscribeDto;
+import com.konditer.blogus.entities.Subscribe;
 import com.konditer.blogus.services.BlogService;
+import com.konditer.blogus.services.SubscribeService;
 import com.konditer.blogus.services.UserService;
-import com.konditer.blogus.services.UserSubscribeService;
 
 @RestController
-public class UserSubscribeController {
+public class SubscribeController {
 
-    private UserSubscribeDto mapUserSubscribeEntityToUserSubscribeDto(UserSubscribe userSubscribe) {
-        return new UserSubscribeDto(userSubscribe.getUser().getId(), 
+    private SubscribeDto mapUserSubscribeEntityToUserSubscribeDto(Subscribe userSubscribe) {
+        return new SubscribeDto(userSubscribe.getUser().getId(), 
             userSubscribe.getBlog().getId(),
             userSubscribe.getUser().getName(),
             userSubscribe.getBlog().getName());
     }
 
-    private UserSubscribe mapUserSubscribeDtoToUserSubscribeEntity(UserSubscribeDto userSubscribeDto) {
-        return new UserSubscribe(userService.getUserById(userSubscribeDto.getUserId()),
+    private Subscribe mapUserSubscribeDtoToUserSubscribeEntity(SubscribeDto userSubscribeDto) {
+        return new Subscribe(userService.getUserById(userSubscribeDto.getUserId()),
             blogService.getBlogById(userSubscribeDto.getBlogId()));
     }
     
     @Autowired
-    private UserSubscribeService userSubscribeService;
+    private SubscribeService userSubscribeService;
 
     @Autowired
     private UserService userService;
@@ -42,20 +42,20 @@ public class UserSubscribeController {
     private BlogService blogService;
 
     @GetMapping("/userSubscribes/{id}")
-    public UserSubscribeDto getUserSubscribeById(@PathVariable int id) {
+    public SubscribeDto getUserSubscribeById(@PathVariable int id) {
         return mapUserSubscribeEntityToUserSubscribeDto(
             userSubscribeService.getUserSubscribeById(id));
     }
 
     @GetMapping("/userSubscribes")
-    public List<UserSubscribeDto> getAllUserSubscribes() {
+    public List<SubscribeDto> getAllUserSubscribes() {
         return userSubscribeService.getAllUserSubscribes()
             .stream().map(us -> mapUserSubscribeEntityToUserSubscribeDto(us))
             .collect(Collectors.toList());
     }
     
     @PostMapping("/userSubscribes/register")
-    public void registerUserSubscribe(@RequestBody UserSubscribeDto userSubscribeDto ) {
+    public void registerUserSubscribe(@RequestBody SubscribeDto userSubscribeDto ) {
         userSubscribeService.registerUserSubscribe(
             mapUserSubscribeDtoToUserSubscribeEntity(userSubscribeDto));
     }

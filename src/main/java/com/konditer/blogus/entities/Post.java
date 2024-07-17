@@ -11,26 +11,23 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity @Table(name = "blog_note", schema = "public")
-public class BlogNote extends BaseEntityUpdatable {
+public class Post extends BaseEntityUpdatable {
 
     private String title;
     private String text;
-    private int posReactionsAmount;
-    private int negReactionsAmount;
-
     private Blog blog;
     private List<Comment> comments;
+    private List<PostReaction> reactions;
 
-    public BlogNote() {}
+    public Post() {}
 
-    public BlogNote(String title, String text, Blog blog) {
+    public Post(String title, String text, Blog blog) {
         super();
         this.title = title;
         this.text = text;
-        this.posReactionsAmount = 0;
-        this.negReactionsAmount = 0;
         this.blog = blog;
         this.comments = new ArrayList<>();
+        this.reactions = new ArrayList<>();
     }
 
     @Column(name = "title")
@@ -43,19 +40,14 @@ public class BlogNote extends BaseEntityUpdatable {
         return text;
     }
 
-    @Column(name = "pos_reactions_amount")
-    public int getPosReactionsAmount() {
-        return this.posReactionsAmount;
-    }
-
-    @Column(name = "neg_reactions_amount")
-    public int getNegReactionsAmount() {
-        return this.negReactionsAmount;
-    }
-
-    @OneToMany(mappedBy = "blogNote")
+    @OneToMany(mappedBy = "post")
     public List<Comment> getComments() {
         return this.comments;
+    }
+
+    @OneToMany(mappedBy = "post")
+    public List<PostReaction> getReactions() {
+        return this.reactions;
     }
 
     @ManyToOne
@@ -80,11 +72,7 @@ public class BlogNote extends BaseEntityUpdatable {
         this.blog = blog;
     }
 
-    public void setPosReactionsAmount(int posReactionsAmount) {
-        this.posReactionsAmount = posReactionsAmount;
-    }
-
-    public void setNegReactionsAmount(int negReactionsAmount) {
-        this.negReactionsAmount = negReactionsAmount;
+    public void setReactions(List<PostReaction> reactions) {
+        this.reactions = reactions;
     }
 }

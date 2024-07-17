@@ -1,19 +1,25 @@
 package com.konditer.blogus.dto;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 public class UserDto {
     private String name;
     private LocalDate birthDate;
     private double rating;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 
     public UserDto() {}
 
-    public UserDto(String name, LocalDate birthDate, double rating) {
+    public UserDto(String name, LocalDate birthDate, 
+    double rating, Timestamp createdAt, Timestamp updatedAt) {
         
         this.name = name;
         this.birthDate = birthDate;
         this.rating = rating;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public String getName() {
@@ -38,5 +44,21 @@ public class UserDto {
 
     public void setRating(double rating) {
         this.rating = rating;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

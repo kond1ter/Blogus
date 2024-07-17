@@ -23,7 +23,8 @@ public class BlogController {
     private BlogDto mapBlogEntityToBlogDto(Blog blog) {
         return new BlogDto(blog.getName(), blog.isClosed(), blog.getRating(),
             blog.getAuthor().getId(), blog.getTheme().getId(), 
-            blog.getNotes().size(), blog.getSubscribes().size());
+            blog.getPosts().size(), blog.getSubscribes().size(),
+            blog.getCreatedAt(), blog.getUpdatedAt());
     }
 
     private Blog mapBlogDtoToBlogEntity(BlogDto blogDto) {

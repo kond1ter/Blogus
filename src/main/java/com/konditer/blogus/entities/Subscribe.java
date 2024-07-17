@@ -6,14 +6,14 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity @Table(name = "user_subscribes", schema = "public")
-public class UserSubscribe extends BaseEntity {
+public class Subscribe extends BaseEntity {
 
     public User user;
     public Blog blog;
 
-    public UserSubscribe() {}
+    public Subscribe() {}
 
-    public UserSubscribe(User user, Blog blog) {
+    public Subscribe(User user, Blog blog) {
         super();
         this.user = user;
         this.blog = blog;

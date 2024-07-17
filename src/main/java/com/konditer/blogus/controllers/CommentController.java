@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.konditer.blogus.dto.CommentDto;
 import com.konditer.blogus.entities.Comment;
-import com.konditer.blogus.services.BlogNoteService;
+import com.konditer.blogus.services.CommentReactionService;
 import com.konditer.blogus.services.CommentService;
+import com.konditer.blogus.services.PostService;
 import com.konditer.blogus.services.UserService;
 
 @RestController
@@ -23,15 +24,18 @@ public class CommentController {
 
     private CommentDto mapCommentEntityToCommentDto(Comment comment) {
         return new CommentDto(comment.getText(),
-            comment.getPosReactionsAmount(), comment.getNegReactionsAmount(),
-            comment.getAuthor().getId(), comment.getBlogNote().getId(),
+            commentReactionService.getReactionByCommentIdAndPositive(
+                comment.getId(), true).size(), 
+            commentReactionService.getReactionByCommentIdAndPositive(
+                comment.getId(), false).size(),
+            comment.getAuthor().getId(), comment.getPost().getId(),
             comment.getCreatedAt(), comment.getUpdatedAt());
     }
 
     private Comment mapCommentDtoToCommentEntity(CommentDto commentDto) {
         return new Comment(commentDto.getText(), 
             userService.getUserById(commentDto.getAuthorId()),
-            blogNoteService.getBlogNoteById(commentDto.getBlogNoteId()));
+           postService.getPostById(commentDto.getPostId()));
     }
 
     @Autowired
@@ -41,7 +45,10 @@ public class CommentController {
     private UserService userService;
 
     @Autowired
-    private BlogNoteService blogNoteService;
+    private PostService postService;
+
+    @Autowired
+    private CommentReactionService commentReactionService;
 
     @GetMapping("/comments/{id}")
     public CommentDto getCommentById(@PathVariable int id) {

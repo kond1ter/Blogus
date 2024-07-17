@@ -8,13 +8,13 @@ public class CommentDto {
     private int posReactionsAmount;
     private int negReactionsAmount;
     private int authorId;
-    private int blogNoteId;
+    private int postId;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
     public CommentDto() {}
 
-    public CommentDto(String text, int authorId, int blogNoteId,
+    public CommentDto(String text, int authorId, int postId,
     int posReactionsAmount, int negReactionsAmount,
     Timestamp createdAt, Timestamp updatedAt) {
         
@@ -22,7 +22,7 @@ public class CommentDto {
         this.posReactionsAmount = posReactionsAmount;
         this.negReactionsAmount = posReactionsAmount;
         this.authorId = authorId;
-        this.blogNoteId = blogNoteId;
+        this.postId = postId;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -59,12 +59,12 @@ public class CommentDto {
         this.authorId = authorId;
     }
 
-    public int getBlogNoteId() {
-        return blogNoteId;
+    public int getPostId() {
+        return postId;
     }
 
-    public void setBlogNoteId(int blogNoteId) {
-        this.blogNoteId = blogNoteId;
+    public void setPostId(int postId) {
+        this.postId = postId;
     }
 
     public Timestamp getCreatedAt() {

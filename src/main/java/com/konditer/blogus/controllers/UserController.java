@@ -21,7 +21,8 @@ import com.konditer.blogus.services.UserService;
 public class UserController {
 
     private UserDto mapUserEntityToUserDto(User user) {
-        return new UserDto(user.getName(), user.getBirthDate(), user.getRating());
+        return new UserDto(user.getName(), user.getBirthDate(), user.getRating(),
+            user.getCreatedAt(), user.getUpdatedAt());
     }
 
     private User mapUserDtoToUserEntity(UserDto userDto) {

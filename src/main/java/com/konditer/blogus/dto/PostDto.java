@@ -2,7 +2,7 @@ package com.konditer.blogus.dto;
 
 import java.sql.Timestamp;
 
-public class BlogNoteDto {
+public class PostDto {
 
     private String text;
     private String title;
@@ -12,9 +12,7 @@ public class BlogNoteDto {
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
-    public BlogNoteDto() {}
-
-    public BlogNoteDto(String text, String title, 
+    public PostDto(String title, String text, 
     int posReactionsAmount, int negReactionsAmount, 
     int blogId, Timestamp createdAt, Timestamp updatedAt) {
 
@@ -26,6 +24,8 @@ public class BlogNoteDto {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
+
+    public PostDto() {}
 
     public String getText() {
         return text;

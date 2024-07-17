@@ -1,15 +1,18 @@
 package com.konditer.blogus.dto;
 
-public class UserSubscribeDto {
+import java.sql.Timestamp;
+
+public class SubscribeDto {
     
     private int userId;
     private int blogId;
     private String userName;
     private String blogName;
+    private Timestamp createdAt;
 
-    public UserSubscribeDto() {}
+    public SubscribeDto() {}
 
-    public UserSubscribeDto(int userId, int blogId, String userName, String blogName) {
+    public SubscribeDto(int userId, int blogId, String userName, String blogName) {
         this.userId = userId;
         this.blogId = blogId;
         this.userName = userName;
@@ -46,5 +49,13 @@ public class UserSubscribeDto {
 
     public void setBlogName(String blogName) {
         this.blogName = blogName;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
     }
 }
