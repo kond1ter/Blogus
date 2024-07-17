@@ -1,12 +1,11 @@
 package com.konditer.blogus.services;
 
+import java.sql.Timestamp;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.konditer.blogus.dto.UserDto;
 import com.konditer.blogus.entities.User;
 import com.konditer.blogus.repositories.UserRepository;
 import com.konditer.blogus.services.contracts.UserServiceContract;
@@ -17,35 +16,31 @@ public class UserService implements UserServiceContract {
     @Autowired
     private UserRepository userRepository;
 
-    private UserDto mapUserEntityToUserDto(User user) {
-        return new UserDto(user.getName(), 
-            user.getBirthDate(), user.getRegistrationDate(), user.getRating());
-    }
-
-    private User mapUserDtoToUserEntity(UserDto userDto) {
-        return new User(userDto.name, userDto.birthDate);
+    @Override
+    public User getUserById(int id) {
+        return userRepository.findById(id);
     }
 
     @Override
-    public UserDto getUserById(int id) {
-        User user = userRepository.findById(id);
-        return mapUserEntityToUserDto(user);
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
     @Override
-    public List<UserDto> getAllUsers() {
-        List<User> users = userRepository.findAll();
-        return users.stream().map(u -> mapUserEntityToUserDto(u))
-            .collect(Collectors.toList());
-    }
-
-    @Override
-    public void registerUser(UserDto userDto) {
-        userRepository.save(mapUserDtoToUserEntity(userDto));
+    public void registerUser(User user) {
+        userRepository.save(user);
     }
 
     @Override
     public void removeUser(int id) {
         userRepository.delete(userRepository.findById(id));
+    }
+
+    @Override
+    public void updateUserName(int id, String name) {
+        User user = userRepository.findById(id);
+        user.setName(name);
+        user.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+        userRepository.save(user);
     }
 }

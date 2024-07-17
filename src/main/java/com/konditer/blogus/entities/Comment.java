@@ -1,7 +1,5 @@
 package com.konditer.blogus.entities;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -9,30 +7,24 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity @Table(name = "comment", schema = "public")
-public class Comment extends BaseEntity {
-    private LocalDate creatingDate;
+public class Comment extends BaseEntityUpdatable {
+
     private String text;
-    private int likesAmount;
-    private int dislikesAmount;
+    private int posReactionsAmount;
+    private int negReactionsAmount;
 
     private User author;
     private BlogNote blogNote;
 
     public Comment() {}
 
-    public Comment(String text, int likesAmount,
-        int dislikesAmount, User author, BlogNote blogNote) {
-        this.setText(text);
-        this.setCreatingDate(LocalDate.now());
-        this.setLikesAmount(0);
-        this.setDislikesAmount(0);
-        this.setAuthor(author);
-        this.setBlogNote(blogNote);
-    }
-
-    @Column(name = "creating_date")
-    public LocalDate getCreatingDate() {
-        return creatingDate;
+    public Comment(String text, User author, BlogNote blogNote) {
+        super();
+        this.text = text;
+        this.posReactionsAmount = 0;
+        this.negReactionsAmount = 0;
+        this.blogNote = blogNote;
+        this.author = author;
     }
 
     @Column(name = "text")
@@ -40,14 +32,14 @@ public class Comment extends BaseEntity {
         return text;
     }
 
-    @Column(name = "likes_amount")
-    public int getLikesAmount() {
-        return likesAmount;
+    @Column(name = "pos_reactions_amount")
+    public int getPosReactionsAmount() {
+        return this.posReactionsAmount;
     }
 
-    @Column(name = "dislikes_amount")
-    public int getDislikesAmount() {
-        return dislikesAmount;
+    @Column(name = "neg_reactions_amount")
+    public int negPosReactionsAmount() {
+        return this.negReactionsAmount;
     }
 
     @ManyToOne
@@ -62,20 +54,8 @@ public class Comment extends BaseEntity {
         return this.author;
     }
 
-    public void setCreatingDate(LocalDate creadingDate) {
-        this.creatingDate = creadingDate;
-    }
-
     public void setText(String text) {
         this.text = text;
-    }
-
-    public void setLikesAmount(int likesAmount) {
-        this.likesAmount = likesAmount;
-    }
-
-    public void setDislikesAmount(int dislikesAmount) {
-        this.dislikesAmount = dislikesAmount;
     }
 
     public void setBlogNote(BlogNote blogNote) {
@@ -84,5 +64,13 @@ public class Comment extends BaseEntity {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public void setPosReactionsAmount(int posReactionsAmount) {
+        this.posReactionsAmount = posReactionsAmount;
+    }
+
+    public void setNegReactionsAmount(int negReactionsAmount) {
+        this.negReactionsAmount = negReactionsAmount;
     }
 }

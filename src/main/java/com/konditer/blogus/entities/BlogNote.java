@@ -1,7 +1,7 @@
 package com.konditer.blogus.entities;
 
-import java.time.LocalDate;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,27 +11,26 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity @Table(name = "blog_note")
-public class BlogNote extends BaseEntity {
+public class BlogNote extends BaseEntityUpdatable {
+
     private String title;
     private String text;
-    private LocalDate creatingDate;
-    private int likesAmount;
-    private int dislikesAmount;
+    private int posReactionsAmount;
+    private int negReactionsAmount;
 
     private Blog blog;
-    private Set<Comment> comments;
+    private List<Comment> comments;
 
     public BlogNote() {}
 
-    public BlogNote(String title, String text, int likesAmount, 
-        int dislikesAmount, Blog blog, Set<Comment> comments) {
-        this.setTitle(title);
-        this.setText(text);
-        this.setCreatingDate(LocalDate.now());
-        this.setLikesAmount(0);
-        this.setDislikesAmount(0);
-        this.setBlog(blog);
-        this.setComments(comments);
+    public BlogNote(String title, String text, Blog blog) {
+        super();
+        this.title = title;
+        this.text = text;
+        this.posReactionsAmount = 0;
+        this.negReactionsAmount = 0;
+        this.blog = blog;
+        this.comments = new ArrayList<>();
     }
 
     @Column(name = "title")
@@ -44,23 +43,18 @@ public class BlogNote extends BaseEntity {
         return text;
     }
 
-    @Column(name = "creating_date")
-    public LocalDate getCreatingDate() {
-        return creatingDate;
+    @Column(name = "pos_reactions_amount")
+    public int getPosReactionsAmount() {
+        return this.posReactionsAmount;
     }
 
-    @Column(name = "likes_amount")
-    public int getLikesAmount() {
-        return likesAmount;
-    }
-
-    @Column(name = "dislikes_amount")
-    public int getDislikesAmount() {
-        return dislikesAmount;
+    @Column(name = "neg_reactions_amount")
+    public int negPosReactionsAmount() {
+        return this.negReactionsAmount;
     }
 
     @OneToMany(mappedBy = "blogNote")
-    public Set<Comment> getComments() {
+    public List<Comment> getComments() {
         return this.comments;
     }
 
@@ -68,10 +62,6 @@ public class BlogNote extends BaseEntity {
     @JoinColumn(name = "blog_id", nullable = false)
     public Blog getBlog() {
         return this.blog;
-    }
-
-    public void setDislikesAmount(int dislikesAmount) {
-        this.dislikesAmount = dislikesAmount;
     }
 
     public void setTitle(String title) {
@@ -82,19 +72,19 @@ public class BlogNote extends BaseEntity {
         this.text = text;
     }
 
-    public void setCreatingDate(LocalDate creatingDate) {
-        this.creatingDate = creatingDate;
-    }
-
-    public void setLikesAmount(int likesAmount) {
-        this.likesAmount = likesAmount;
-    }
-
-    public void setComments(Set<Comment> comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 
     public void setBlog(Blog blog) {
         this.blog = blog;
+    }
+
+    public void setPosReactionsAmount(int posReactionsAmount) {
+        this.posReactionsAmount = posReactionsAmount;
+    }
+
+    public void setNegReactionsAmount(int negReactionsAmount) {
+        this.negReactionsAmount = negReactionsAmount;
     }
 }

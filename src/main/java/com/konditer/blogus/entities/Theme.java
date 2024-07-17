@@ -1,6 +1,7 @@
 package com.konditer.blogus.entities;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,15 +9,17 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity @Table(name = "theme")
-public class Theme extends BaseEntity {
+public class Theme extends BaseEntityUpdatable {
+    
     private String name;
-    private Set<Blog> blogs;
+    private List<Blog> blogs;
 
     public Theme() {}
 
-    public Theme(String name, Set<Blog> blogs) {
-        this.setName(name);
-        this.setBlogs(blogs);
+    public Theme(String name) {
+        super();
+        this.name = name;
+        this.blogs = new ArrayList<>();
     }
 
     @Column(name = "name")
@@ -25,7 +28,7 @@ public class Theme extends BaseEntity {
     }
 
     @OneToMany(mappedBy = "theme")
-    public Set<Blog> getBlogs() {
+    public List<Blog> getBlogs() {
         return this.blogs;
     }
 
@@ -33,7 +36,7 @@ public class Theme extends BaseEntity {
         this.name = name;
     }
 
-    public void setBlogs(Set<Blog> blogs) {
+    public void setBlogs(List<Blog> blogs) {
         this.blogs = blogs;
     }
 }

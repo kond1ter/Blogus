@@ -10,10 +10,10 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity @Table(name = "user", schema = "public")
-public class User extends BaseEntity {
+public class User extends BaseEntityUpdatable {
+
     private String name;
     private LocalDate birthDate;
-    private LocalDate registrationDate;
     private double rating;
 
     private List<Blog> blogs;
@@ -25,10 +25,9 @@ public class User extends BaseEntity {
     public User() {}
 
     public User(String name, LocalDate birthDate) {
-
+        super();
         this.name = name;
         this.birthDate = birthDate;
-        this.registrationDate = LocalDate.now();
         this.rating = DEFAULT_RATING;
         this.blogs = new ArrayList<>();
         this.comments = new ArrayList<>();
@@ -43,11 +42,6 @@ public class User extends BaseEntity {
     @Column(name = "birth_date")
     public LocalDate getBirthDate() {
         return this.birthDate;
-    }
-
-    @Column(name = "registration_date")
-    public LocalDate getRegistrationDate() {
-        return this.registrationDate;
     }
 
     @Column(name = "rating")
@@ -76,10 +70,6 @@ public class User extends BaseEntity {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
-    }
-
-    public void setRegistrationDate(LocalDate registrationDate) {
-        this.registrationDate = registrationDate;
     }
 
     public void setRating(double rating) {

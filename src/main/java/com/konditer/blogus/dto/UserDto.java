@@ -3,17 +3,40 @@ package com.konditer.blogus.dto;
 import java.time.LocalDate;
 
 public class UserDto {
-    public String name;
-    public LocalDate birthDate;
-    public LocalDate registrationDate;
-    public double rating;
+    private String name;
+    private LocalDate birthDate;
+    private double rating;
 
-    public UserDto(String name, LocalDate birthDate, 
-        LocalDate registrationDate, double rating) {
+    public UserDto() {}
+
+    public UserDto(String name, LocalDate birthDate, double rating) {
         
         this.name = name;
         this.birthDate = birthDate;
-        this.registrationDate = registrationDate;
+        this.rating = rating;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
         this.rating = rating;
     }
 }
