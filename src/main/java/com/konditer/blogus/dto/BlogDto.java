@@ -11,18 +11,7 @@ public class BlogDto {
 
     public BlogDto() {}
 
-    public BlogDto(String name, boolean closed, int authorId, int themeId) {
-        
-        this.name = name;
-        this.closed = closed;
-        this.rating = 1;
-        this.authorId = authorId;
-        this.themeId = themeId;
-        this.notesAmount = 0;
-        this.subscribesAmount = 0;
-    }
-
-    public BlogDto(String name, boolean closed, double rating,
+    public BlogDto(String name, boolean closed, double rating, 
     int authorId, int themeId, int notesAmount, int subscribesAmount) {
         
         this.name = name;

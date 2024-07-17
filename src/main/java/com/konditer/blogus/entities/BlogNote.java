@@ -10,7 +10,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-@Entity @Table(name = "blog_note")
+@Entity @Table(name = "blog_note", schema = "public")
 public class BlogNote extends BaseEntityUpdatable {
 
     private String title;
@@ -49,7 +49,7 @@ public class BlogNote extends BaseEntityUpdatable {
     }
 
     @Column(name = "neg_reactions_amount")
-    public int negPosReactionsAmount() {
+    public int getNegReactionsAmount() {
         return this.negReactionsAmount;
     }
 

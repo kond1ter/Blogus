@@ -38,7 +38,7 @@ public class Comment extends BaseEntityUpdatable {
     }
 
     @Column(name = "neg_reactions_amount")
-    public int negPosReactionsAmount() {
+    public int getNegReactionsAmount() {
         return this.negReactionsAmount;
     }
 
