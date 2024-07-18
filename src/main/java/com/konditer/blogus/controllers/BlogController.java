@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,9 +57,21 @@ public class BlogController {
             .collect(Collectors.toList());
     }
 
+    @GetMapping("/blogs/recomended")
+    public List<BlogDto> getRecomendedBlogs(@RequestParam int userId) {
+        List<Blog> blogs = blogService.getRecomendedBlogs(userId);
+        return blogs.stream().map(b -> mapBlogEntityToBlogDto(b))
+            .collect(Collectors.toList());
+    }
+
     @PostMapping("/blogs/register")
     public void registerBlog(@RequestBody BlogDto blogDto) {
         blogService.registerBlog(mapBlogDtoToBlogEntity(blogDto));
+    }
+
+    @DeleteMapping("/blogs/{id}")
+    public void removeBlog(@PathVariable int id) {
+        blogService.removeBlog(id);
     }
     
     @GetMapping("/blogs/{id}/rename")

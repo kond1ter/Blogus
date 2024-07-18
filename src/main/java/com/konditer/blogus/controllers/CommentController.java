@@ -56,8 +56,8 @@ public class CommentController {
     }
 
     @GetMapping("/comments")
-    public List<CommentDto> getAllComments() {
-        return commentService.getAllComments()
+    public List<CommentDto> getAllComments(@RequestParam int postId) {
+        return commentService.getAllComments(postId)
             .stream().map(c -> mapCommentEntityToCommentDto(c))
             .collect(Collectors.toList());
     }

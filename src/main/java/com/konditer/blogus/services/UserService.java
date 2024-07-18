@@ -18,7 +18,7 @@ public class UserService implements UserServiceContract {
 
     @Override
     public User getUserById(int id) {
-        return userRepository.findById(id);
+        return userRepository.findById(id).get();
     }
 
     @Override
@@ -33,12 +33,12 @@ public class UserService implements UserServiceContract {
 
     @Override
     public void removeUser(int id) {
-        userRepository.delete(userRepository.findById(id));
+        userRepository.delete(userRepository.findById(id).get());
     }
 
     @Override
     public void updateUserName(int id, String name) {
-        User user = userRepository.findById(id);
+        User user = userRepository.findById(id).get();
         user.setName(name);
         user.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
         userRepository.save(user);

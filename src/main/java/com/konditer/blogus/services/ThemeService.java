@@ -18,7 +18,7 @@ public class ThemeService implements ThemeServiceContract {
 
     @Override
     public Theme getThemeById(int id) {
-        return themeRepository.findThemeById(id);
+        return themeRepository.findById(id).get();
     }
 
     @Override
@@ -28,7 +28,7 @@ public class ThemeService implements ThemeServiceContract {
 
     @Override
     public void updateThemeName(int id, String name) {
-        Theme theme = themeRepository.findThemeById(id);
+        Theme theme = themeRepository.findById(id).get();
         theme.setName(name);
         theme.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
     }
@@ -40,6 +40,6 @@ public class ThemeService implements ThemeServiceContract {
 
     @Override
     public void removeTheme(int id) {
-        themeRepository.delete(themeRepository.findThemeById(id));
+        themeRepository.deleteById(id);
     }
 }

@@ -11,6 +11,8 @@ public interface BlogServiceContract {
     
     List<Blog> getAllBlogs();
 
+    List<Blog> getRecomendedBlogs(int userId);
+
     void registerBlog(Blog blog);
 
     void removeBlog(int id);

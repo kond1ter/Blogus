@@ -22,7 +22,7 @@ public class Blog extends BaseEntityUpdatable {
     private List<Subscribe> subscribes;
     private List<Post> posts;
 
-    private static final double DEFAULT_RATING = 1.0;
+    private static final double DEFAULT_RATING = 0.0;
 
     public Blog() {}
 

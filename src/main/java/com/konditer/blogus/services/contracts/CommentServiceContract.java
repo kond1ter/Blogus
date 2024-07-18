@@ -8,7 +8,7 @@ public interface CommentServiceContract {
     
     Comment getCommentById(int id);
 
-    List<Comment> getAllComments();
+    List<Comment> getAllComments(int postId);
 
     void registerComment(Comment comment);
 

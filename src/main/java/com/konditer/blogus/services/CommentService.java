@@ -1,6 +1,7 @@
 package com.konditer.blogus.services;
 
 import java.sql.Timestamp;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,17 @@ public class CommentService implements CommentServiceContract {
 
     @Override
     public Comment getCommentById(int id) {
-        return commentRepository.findById(id);
+        return commentRepository.findById(id).get();
     }
 
     @Override
-    public List<Comment> getAllComments() {
-        return commentRepository.findAll();
+    public List<Comment> getAllComments(int postId) {
+        List<Comment> comments = commentRepository.findByPostId(postId);
+
+        Collections.sort(comments, (c1, c2) -> Integer.compare(
+            c1.getReactions().size(), c2.getReactions().size()));
+
+        return comments;
     }
 
     @Override
@@ -33,12 +39,12 @@ public class CommentService implements CommentServiceContract {
 
     @Override
     public void removeComment(int id) {
-        commentRepository.delete(commentRepository.findById(id));
+        commentRepository.delete(commentRepository.findById(id).get());
     }
 
     @Override
     public void updateCommentText(int id, String text) {
-        Comment comment = commentRepository.findById(id);
+        Comment comment = commentRepository.findById(id).get();
         comment.setText(text);
         comment.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
         commentRepository.save(comment);

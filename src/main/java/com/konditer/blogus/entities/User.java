@@ -19,7 +19,7 @@ public class User extends BaseEntityUpdatable {
     private List<Comment> comments;
     private List<Subscribe> subscribes;
 
-    private static final double DEFAULT_RATING = 1.0;
+    private static final double DEFAULT_RATING = 0.0;
 
     public User() {}
 

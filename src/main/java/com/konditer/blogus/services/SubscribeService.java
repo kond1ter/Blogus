@@ -17,7 +17,7 @@ public class SubscribeService implements SubscribeServiceContract{
 
     @Override
     public Subscribe getUserSubscribeById(int id) {
-        return userSubscribeRepository.findById(id);
+        return userSubscribeRepository.findById(id).get();
     }
 
     @Override
@@ -32,6 +32,6 @@ public class SubscribeService implements SubscribeServiceContract{
 
     @Override
     public void removeUserSubscribe(int id) {
-        userSubscribeRepository.delete(userSubscribeRepository.findById(id));
+        userSubscribeRepository.deleteById(id);
     }
 }

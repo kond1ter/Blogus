@@ -7,9 +7,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.PreUpdate;
 
 @MappedSuperclass
 public abstract class BaseEntity {
+
+    @PreUpdate
+    protected void preUpdate() {
+        throw new UnsupportedOperationException("Update is not allowed");
+    }
 
     private int id;
     private Timestamp createdAt;
