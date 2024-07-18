@@ -1,7 +1,6 @@
 package com.konditer.blogus.controllers;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,40 +12,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.konditer.blogus.dto.ThemeDto;
-import com.konditer.blogus.entities.Theme;
 import com.konditer.blogus.services.ThemeService;
 
 @RestController
 public class ThemeController {
-    
-    private ThemeDto mapThemeEntityToThemeDto(Theme theme) {
-        return new ThemeDto(theme.getName(),
-            theme.getCreatedAt(), theme.getUpdatedAt());
-    }
-
-    private Theme mapThemeDtoToThemeEntity(ThemeDto themeDto) {
-        return new Theme(themeDto.getName());
-    }
 
     @Autowired
     private ThemeService themeService;
 
     @GetMapping("/themes/{id}")
     public ThemeDto getThemeById(@PathVariable int id) {
-        Theme theme = themeService.getThemeById(id);
-        return mapThemeEntityToThemeDto(theme);
+        return themeService.getThemeById(id);
     }
 
     @GetMapping("/themes")
     public List<ThemeDto> getAllThemes() {
-        List<Theme> themes = themeService.getAllThemes();
-        return themes.stream().map(t -> mapThemeEntityToThemeDto(t))
-            .collect(Collectors.toList());
+        return themeService.getAllThemes();
     }
     
     @PostMapping("/themes/register")
     public void registerTheme(@RequestBody ThemeDto themeDto) {
-        themeService.registerTheme(mapThemeDtoToThemeEntity(themeDto));
+        themeService.registerTheme(themeDto);
     }
     
     @DeleteMapping("/themes/{id}")

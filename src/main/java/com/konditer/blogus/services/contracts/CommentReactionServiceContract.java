@@ -2,17 +2,17 @@ package com.konditer.blogus.services.contracts;
 
 import java.util.List;
 
-import com.konditer.blogus.entities.CommentReaction;
+import com.konditer.blogus.dto.CommentReactionDto;
 
 public interface CommentReactionServiceContract {
     
-    CommentReaction getReactionById(int id);
+    CommentReactionDto getReactionById(int id);
 
-    List<CommentReaction> getAllReactions();
+    List<CommentReactionDto> getAllReactions();
 
-    List<CommentReaction> getReactionByCommentIdAndPositive(int id, boolean positive);
+    // List<CommentReactionDto> getReactionByCommentIdAndPositive(int id, boolean positive);
 
-    void registerReaction(CommentReaction reaction);
+    void registerReaction(CommentReactionDto reaction);
 
     void removeReaction(int id);
 

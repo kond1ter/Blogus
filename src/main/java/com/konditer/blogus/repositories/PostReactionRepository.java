@@ -16,7 +16,7 @@ public interface PostReactionRepository extends
     FindRepository<PostReaction, Integer>,
     SaveRepository<PostReaction, Integer> {
     
-    List<PostReaction> findByPostIdAndPositive(int id, boolean positive);
-
     Optional<PostReaction> findByAuthorId(int id);
+
+    List<PostReaction> findByPostIdAndPositive(int postId, boolean positive);
 }

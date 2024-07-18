@@ -2,15 +2,15 @@ package com.konditer.blogus.services.contracts;
 
 import java.util.List;
 
-import com.konditer.blogus.entities.Theme;
+import com.konditer.blogus.dto.ThemeDto;
 
 public interface ThemeServiceContract {
     
-    Theme getThemeById(int id);
+    ThemeDto getThemeById(int id);
 
-    List<Theme> getAllThemes();
+    List<ThemeDto> getAllThemes();
 
-    void registerTheme(Theme theme);
+    void registerTheme(ThemeDto theme);
 
     void removeTheme(int id);
 

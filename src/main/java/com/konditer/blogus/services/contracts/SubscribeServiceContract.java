@@ -2,15 +2,15 @@ package com.konditer.blogus.services.contracts;
 
 import java.util.List;
 
-import com.konditer.blogus.entities.Subscribe;
+import com.konditer.blogus.dto.SubscribeDto;
 
 public interface SubscribeServiceContract {
     
-    Subscribe getUserSubscribeById(int id);
+    SubscribeDto getUserSubscribeById(int id);
 
-    List<Subscribe> getAllUserSubscribes();
+    List<SubscribeDto> getAllUserSubscribes();
 
-    void registerUserSubscribe(Subscribe userSubscribe);
+    void registerUserSubscribe(SubscribeDto userSubscribe);
 
     void removeUserSubscribe(int id);
 }

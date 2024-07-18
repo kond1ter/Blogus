@@ -2,15 +2,15 @@ package com.konditer.blogus.services.contracts;
 
 import java.util.List;
 
-import com.konditer.blogus.entities.Post;
+import com.konditer.blogus.dto.PostDto;
 
 public interface PostServiceContract {
     
-    Post getPostById(int id);
+    PostDto getPostById(int id);
 
-    List<Post> getAllPosts();
+    List<PostDto> getAllPosts();
 
-    void registerPost(Post post);
+    void registerPost(PostDto post);
 
     void removePost(int id);
 

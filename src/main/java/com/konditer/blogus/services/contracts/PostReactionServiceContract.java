@@ -2,19 +2,17 @@ package com.konditer.blogus.services.contracts;
 
 import java.util.List;
 
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
-
-import com.konditer.blogus.entities.PostReaction;
+import com.konditer.blogus.dto.PostReactionDto;
 
 public interface PostReactionServiceContract {
     
-    PostReaction getReactionById(int id);
+    PostReactionDto getReactionById(int id);
 
-    List<PostReaction> getAllReactions();
+    List<PostReactionDto> getAllReactions();
 
-    List<PostReaction> getReactionByCommentIdAndPositive(int id, boolean positive);
+    List<PostReactionDto> getReactionByCommentIdAndPositive(int id, boolean positive);
 
-    void registerReaction(PostReaction reaction) throws NotFoundException;
+    void registerReaction(PostReactionDto reaction);
 
     void removeReaction(int id);
 }

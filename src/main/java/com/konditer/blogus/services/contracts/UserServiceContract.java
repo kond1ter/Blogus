@@ -2,15 +2,15 @@ package com.konditer.blogus.services.contracts;
 
 import java.util.List;
 
-import com.konditer.blogus.entities.User;
+import com.konditer.blogus.dto.UserDto;
 
 public interface UserServiceContract {
 
-    User getUserById(int id);
+    UserDto getUserById(int id);
 
-    List<User> getAllUsers();
+    List<UserDto> getAllUsers();
 
-    void registerUser(User user);
+    void registerUser(UserDto user);
 
     void removeUser(int id);
 

@@ -2,18 +2,17 @@ package com.konditer.blogus.services.contracts;
 
 import java.util.List;
 
-import com.konditer.blogus.entities.Blog;
-import com.konditer.blogus.entities.Theme;
+import com.konditer.blogus.dto.BlogDto;
 
 public interface BlogServiceContract {
 
-    Blog getBlogById(int id);
+    BlogDto getBlogById(int id);
     
-    List<Blog> getAllBlogs();
+    List<BlogDto> getAllBlogs();
 
-    List<Blog> getRecomendedBlogs(int userId);
+    List<BlogDto> getRecomendedBlogs(int userId);
 
-    void registerBlog(Blog blog);
+    void registerBlog(BlogDto blog);
 
     void removeBlog(int id);
 
@@ -21,5 +20,5 @@ public interface BlogServiceContract {
 
     void updateBlogClosed(int id, boolean closed);
 
-    void updateBlogTheme(int id, Theme theme);
+    void updateBlogTheme(int id, int themeId);
 }

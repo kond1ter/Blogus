@@ -8,10 +8,12 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.konditer.blogus.dto.BlogDto;
 import com.konditer.blogus.entities.Blog;
 import com.konditer.blogus.entities.Subscribe;
 import com.konditer.blogus.entities.Theme;
 import com.konditer.blogus.repositories.BlogRepository;
+import com.konditer.blogus.repositories.ThemeRepository;
 import com.konditer.blogus.repositories.UserRepository;
 import com.konditer.blogus.services.contracts.BlogServiceContract;
 
@@ -23,19 +25,21 @@ public class BlogService implements BlogServiceContract {
     private final int MAX_BLOG_PUBLISH_GAP = 30 * 24 * 60 * 60 * 1000;
     
     @Autowired
-    public BlogRepository blogRepository;
+    private BlogRepository blogRepository;
 
     @Autowired
-    public UserRepository userRepository;
+    private UserRepository userRepository;
+
+    @Autowired
+    private ThemeRepository themeRepository;
 
     @Override
-    public Blog getBlogById(int id) {
+    public BlogDto getBlogById(int id) {
         Blog blog = blogRepository.findById(id).get();
-        return blog;
+        return mapBlogEntityToBlogDto(blog);
     }
 
-    @Override
-    public List<Blog> getAllBlogs() {
+    private List<Blog> getAllBlogsRaw() {
         long timestamp = new Timestamp(System.currentTimeMillis()).getTime();
         
         List<Blog> blogs = blogRepository.findAll();
@@ -48,12 +52,21 @@ public class BlogService implements BlogServiceContract {
 
         Collections.sort(filteredBlogs, (b1, b2) -> Double.compare(
             b2.getRating()/b2.getPosts().size(), b1.getRating()/b1.getPosts().size()));
+
         return filteredBlogs;
     }
 
     @Override
-    public List<Blog> getRecomendedBlogs(int userId) {
-        List<Blog> blogs = this.getAllBlogs();
+    public List<BlogDto> getAllBlogs() {
+        List<Blog> blogs = this.getAllBlogsRaw();
+        return blogs.stream()
+            .map(b -> mapBlogEntityToBlogDto(b))
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BlogDto> getRecomendedBlogs(int userId) {
+        List<Blog> blogs = this.getAllBlogsRaw();
         List<Theme> themes = userRepository.findById(userId)
             .get().getSubscribes().stream()
             .map(Subscribe::getBlog).map(Blog::getTheme)
@@ -61,12 +74,14 @@ public class BlogService implements BlogServiceContract {
         List<Blog> recommendedBlogs = blogs.stream()
             .filter(blog -> themes.contains(blog.getTheme()))
             .collect(Collectors.toList());
-        return recommendedBlogs;
+        return recommendedBlogs.stream()
+            .map(b -> mapBlogEntityToBlogDto(b))
+            .collect(Collectors.toList());
     }
 
     @Override
-    public void registerBlog(Blog blog) {
-        blogRepository.save(blog);
+    public void registerBlog(BlogDto blog) {
+        blogRepository.save(mapBlogDtoToBlogEntity(blog));
     }
 
     @Override
@@ -91,10 +106,25 @@ public class BlogService implements BlogServiceContract {
     }
 
     @Override
-    public void updateBlogTheme(int id, Theme theme) {
+    public void updateBlogTheme(int id, int themeId) {
         Blog blog = blogRepository.findById(id).get();
+        Theme theme = themeRepository.findById(themeId).get();
         blog.setTheme(theme);
         blog.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
         blogRepository.save(blog);
+    }
+
+    private BlogDto mapBlogEntityToBlogDto(Blog blog) {
+        return new BlogDto(blog.getName(), blog.isClosed(), blog.getRating(),
+            blog.getAuthor().getId(), blog.getTheme().getId(), 
+            blog.getPosts().size(), blog.getSubscribes().size(),
+            blog.getCreatedAt(), blog.getUpdatedAt());
+    }
+
+    private Blog mapBlogDtoToBlogEntity(BlogDto blogDto) {
+        return new Blog(blogDto.getName(), 
+            userRepository.findById(blogDto.getAuthorId()).get(),
+            themeRepository.findById(blogDto.getThemeId()).get(),
+            blogDto.isClosed());
     }
 }

@@ -2,15 +2,15 @@ package com.konditer.blogus.services.contracts;
 
 import java.util.List;
 
-import com.konditer.blogus.entities.Comment;
+import com.konditer.blogus.dto.CommentDto;
 
 public interface CommentServiceContract {
     
-    Comment getCommentById(int id);
+    CommentDto getCommentById(int id);
 
-    List<Comment> getAllComments(int postId);
+    List<CommentDto> getAllComments(int postId);
 
-    void registerComment(Comment comment);
+    void registerComment(CommentDto comment);
 
     void removeComment(int id);
 

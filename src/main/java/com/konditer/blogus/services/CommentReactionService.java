@@ -2,13 +2,16 @@ package com.konditer.blogus.services;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.konditer.blogus.dto.CommentReactionDto;
 import com.konditer.blogus.entities.CommentReaction;
 import com.konditer.blogus.entities.User;
 import com.konditer.blogus.repositories.CommentReactionRepository;
+import com.konditer.blogus.repositories.CommentRepository;
 import com.konditer.blogus.repositories.UserRepository;
 import com.konditer.blogus.services.contracts.CommentReactionServiceContract;
 
@@ -23,19 +26,24 @@ public class CommentReactionService implements CommentReactionServiceContract {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private CommentRepository commentRepository;
+
     @Override
-    public CommentReaction getReactionById(int id) {
-        return commentReactionRepository.findById(id).get();
+    public CommentReactionDto getReactionById(int id) {
+        return mapReactionEntityToReactionDto(commentReactionRepository.findById(id).get());
     }
 
     @Override
-    public List<CommentReaction> getAllReactions() {
-        return commentReactionRepository.findAll();
+    public List<CommentReactionDto> getAllReactions() {
+        return commentReactionRepository.findAll()
+            .stream().map(c -> mapReactionEntityToReactionDto(c))
+            .collect(Collectors.toList());
     }
 
     @Override
-    public void registerReaction(CommentReaction reaction) {
-        User author = reaction.getAuthor();
+    public void registerReaction(CommentReactionDto reaction) {
+        User author = userRepository.findById(reaction.getAuthorId()).get();
 
         if (reaction.isPositive()) {
             author.setRating(author.getRating() + DEFAULT_REACTION_USER_RATING);
@@ -44,7 +52,7 @@ public class CommentReactionService implements CommentReactionServiceContract {
         }
 
         userRepository.save(author);
-        commentReactionRepository.save(reaction);
+        commentReactionRepository.save(mapReacionDtoToReactionEntity(reaction));
     }
 
     @Override
@@ -70,8 +78,23 @@ public class CommentReactionService implements CommentReactionServiceContract {
         commentReactionRepository.save(reaction);
     }
 
-    @Override
-    public List<CommentReaction> getReactionByCommentIdAndPositive(int id, boolean positive) {
-        return commentReactionRepository.findByCommentIdAndPositive(id, positive);
+    // @Override
+    // public List<CommentReaction> getReactionByCommentIdAndPositive(int id, boolean positive) {
+    //     return commentReactionRepository.findByCommentIdAndPositive(id, positive);
+    // }
+
+    private CommentReactionDto mapReactionEntityToReactionDto(CommentReaction reaction) {
+        return new CommentReactionDto(reaction.isPositive(), 
+            reaction.getAuthor().getId(), 
+            reaction.getComment().getId(), 
+            reaction.getAuthor().getName(), 
+            reaction.getCreatedAt(), 
+            reaction.getUpdatedAt());
+    }
+
+    private CommentReaction mapReacionDtoToReactionEntity(CommentReactionDto reactionDto) {
+        return new CommentReaction(reactionDto.isPositive(),
+            userRepository.findById(reactionDto.getAuthorId()).get(),
+            commentRepository.findById(reactionDto.getCommentId()).get());
     }
 }
