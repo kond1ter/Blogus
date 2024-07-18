@@ -28,6 +28,7 @@ public class BlogDto {
         this.postsAmount = postsAmount;
         this.subscribesAmount = subscribesAmount;
         this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
         this.authorId = authorId;
     }
 

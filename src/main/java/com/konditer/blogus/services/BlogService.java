@@ -43,7 +43,7 @@ public class BlogService implements BlogServiceContract {
             .filter(blog -> !blog.isClosed())
             .filter(blog -> blog.getRating() > BLOG_BAN_RATING)
             .filter(blog -> blog.getAuthor().getRating() > USER_BAN_RATING)
-            .filter(blog -> blog.getUpdatedAt().getTime() > timestamp - MAX_BLOG_PUBLISH_GAP)
+            .filter(blog -> blog.getUpdatedAt().getTime() < timestamp - MAX_BLOG_PUBLISH_GAP)
             .collect(Collectors.toList());
 
         Collections.sort(filteredBlogs, (b1, b2) -> Double.compare(
