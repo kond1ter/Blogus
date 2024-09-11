@@ -9,7 +9,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity @Table(name = "theme")
-public class Theme extends BaseEntityUpdatable {
+public class Theme extends BaseEntity {
     
     private String name;
     private List<Blog> blogs;

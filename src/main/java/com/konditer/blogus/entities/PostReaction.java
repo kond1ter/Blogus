@@ -7,7 +7,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity @Table(name = "blog_note_reaction", schema = "public")
-public class PostReaction extends BaseEntityUpdatable {
+public class PostReaction extends BaseEntity {
     
     private boolean positive;
     private User author;

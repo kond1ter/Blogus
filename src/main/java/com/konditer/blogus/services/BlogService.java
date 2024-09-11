@@ -35,7 +35,7 @@ public class BlogService implements BlogServiceContract {
 
     @Override
     public BlogDto getBlogById(int id) {
-        Blog blog = blogRepository.findById(id).get();
+        Blog blog = blogRepository.getReferenceById(id);
         return mapBlogEntityToBlogDto(blog);
     }
 
@@ -50,7 +50,7 @@ public class BlogService implements BlogServiceContract {
             .filter(blog -> blog.getUpdatedAt().getTime() < timestamp - MAX_BLOG_PUBLISH_GAP)
             .collect(Collectors.toList());
 
-        Collections.sort(filteredBlogs, (b1, b2) -> Double.compare(
+        Collections.sort(filteredBlogs, (b2, b1) -> Double.compare(
             b2.getRating()/b2.getPosts().size(), b1.getRating()/b1.getPosts().size()));
 
         return filteredBlogs;

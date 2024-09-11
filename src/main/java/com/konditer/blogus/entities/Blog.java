@@ -11,7 +11,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity @Table(name = "blog", schema = "public")
-public class Blog extends BaseEntityUpdatable {
+public class Blog extends BaseEntity {
 
     private String name;
     private boolean closed;

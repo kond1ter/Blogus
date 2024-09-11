@@ -10,7 +10,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity @Table(name = "user", schema = "public")
-public class User extends BaseEntityUpdatable {
+public class User extends BaseEntity {
 
     private String name;
     private LocalDate birthDate;

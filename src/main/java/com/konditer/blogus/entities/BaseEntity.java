@@ -7,21 +7,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.PreUpdate;
 
 @MappedSuperclass
 public abstract class BaseEntity {
 
-    @PreUpdate
-    protected void preUpdate() {
-        throw new UnsupportedOperationException("Update is not allowed");
-    }
-
     private int id;
     private Timestamp createdAt;
+    private Timestamp updatedAt;
 
     public BaseEntity() {
         this.createdAt = new Timestamp(System.currentTimeMillis());
+        this.updatedAt = new Timestamp(System.currentTimeMillis());
     }
 
     @Id
@@ -36,11 +32,20 @@ public abstract class BaseEntity {
         return this.createdAt;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
+    }
+
+    @Column(name = "updated_at")
+    public Timestamp getUpdatedAt() {
+        return this.updatedAt;
+    }
+
+    public void setUpdatedAt(Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
