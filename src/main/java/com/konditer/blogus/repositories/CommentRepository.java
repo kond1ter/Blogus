@@ -10,5 +10,5 @@ import com.konditer.blogus.entities.Comment;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
     
-    List<Comment> findByPostId(int postId);
+    List<Comment> findByPostId(int id);
 }

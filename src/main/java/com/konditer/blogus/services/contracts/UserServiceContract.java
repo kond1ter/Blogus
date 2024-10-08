@@ -6,13 +6,11 @@ import com.konditer.blogus.dto.UserDto;
 
 public interface UserServiceContract {
 
-    UserDto getUserById(int id);
+    UserDto get(int id);
 
-    List<UserDto> getAllUsers();
+    List<UserDto> getAllByBlogId(int id);
 
-    void registerUser(UserDto user);
+    void register(UserDto user);
 
-    void removeUser(int id);
-
-    void updateUserName(int id, String name);
+    void remove(int id);
 }

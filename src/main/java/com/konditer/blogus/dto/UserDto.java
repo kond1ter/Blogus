@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 
 public class UserDto {
+    private int id;
     private String name;
     private LocalDate birthDate;
     private double rating;
@@ -12,9 +13,15 @@ public class UserDto {
 
     public UserDto() {}
 
-    public UserDto(String name, LocalDate birthDate, 
-    double rating, Timestamp createdAt, Timestamp updatedAt) {
-        
+    public UserDto(
+        int id,
+        String name, 
+        LocalDate birthDate, 
+        double rating, 
+        Timestamp createdAt, 
+        Timestamp updatedAt
+    ) {
+        this.id = id;
         this.name = name;
         this.birthDate = birthDate;
         this.rating = rating;
@@ -60,5 +67,13 @@ public class UserDto {
 
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

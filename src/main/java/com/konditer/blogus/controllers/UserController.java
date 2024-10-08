@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,28 +20,23 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/users/{id}")
-    public UserDto getUserById(@PathVariable int id) {
-        return userService.getUserById(id);
+    @GetMapping("/users/one")
+    public UserDto get(@RequestParam int id) {
+        return userService.get(id);
     }
 
-    @GetMapping("/users")
-    public List<UserDto> getAllUsers() {
-        return userService.getAllUsers();
+    @GetMapping("/users/allbyblog")
+    public List<UserDto> getAllByBlogId(@RequestParam int blogid) {
+        return userService.getAllByBlogId(blogid);
     }
 
     @PostMapping("/users/register")
-    public void registerUser(@RequestBody UserDto userDto) {
-        userService.registerUser(userDto);
+    public void register(@RequestBody UserDto userDto) {
+        userService.register(userDto);
     }
 
-    @DeleteMapping("/users/{id}")
-    public void removeUser(@PathVariable int id) {
-        userService.removeUser(id);
-    }
-
-    @GetMapping("/users/{id}/rename")
-    public void updateUserName(@RequestParam String name, @PathVariable int id) {
-        userService.updateUserName(id, name);
+    @DeleteMapping("/users/remove")
+    public void remove(@RequestParam int id) {
+        userService.remove(id);
     }
 }

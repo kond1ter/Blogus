@@ -1,6 +1,5 @@
 package com.konditer.blogus.services;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,41 +18,31 @@ public class ThemeService implements ThemeServiceContract {
     private ThemeRepository themeRepository;
 
     @Override
-    public ThemeDto getThemeById(int id) {
-        return mapThemeEntityToThemeDto(themeRepository.findById(id).get());
-    }
-
-    @Override
-    public List<ThemeDto> getAllThemes() {
+    public List<ThemeDto> getAll() {
+        // TODO: implement
         return themeRepository.findAll()
             .stream().map(t -> mapThemeEntityToThemeDto(t))
             .collect(Collectors.toList());
     }
 
     @Override
-    public void updateThemeName(int id, String name) {
-        Theme theme = themeRepository.findById(id).get();
-        theme.setName(name);
-        theme.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-        themeRepository.save(theme);
-    }
-
-    @Override
-    public void registerTheme(ThemeDto theme) {
+    public void register(ThemeDto theme) {
+        // TODO: checks
         themeRepository.save(mapThemeDtoToThemeEntity(theme));
     }
 
     @Override
-    public void removeTheme(int id) {
-        themeRepository.deleteById(id);
+    public void remove(int id) {
+        // TODO: implement marking as deleted
     }
     
     private ThemeDto mapThemeEntityToThemeDto(Theme theme) {
-        return new ThemeDto(theme.getName(),
-            theme.getCreatedAt(), theme.getUpdatedAt());
+        // TODO: implement mapping
+        return new ThemeDto();
     }
 
     private Theme mapThemeDtoToThemeEntity(ThemeDto themeDto) {
-        return new Theme(themeDto.getName());
+        // TODO: implement mapping
+        return new Theme();
     }
 }

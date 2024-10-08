@@ -6,15 +6,11 @@ import com.konditer.blogus.dto.PostDto;
 
 public interface PostServiceContract {
     
-    PostDto getPostById(int id);
+    PostDto get(int id);
 
-    List<PostDto> getAllPosts();
+    List<PostDto> getAllByBlogId(int id);
 
-    void registerPost(PostDto post);
+    void register(PostDto post);
 
-    void removePost(int id);
-
-    void updatePostTitle(int id, String title);
-
-    void updatePostText(int id, String text);
+    void remove(int id);
 }

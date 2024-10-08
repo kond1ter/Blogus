@@ -6,19 +6,15 @@ import com.konditer.blogus.dto.BlogDto;
 
 public interface BlogServiceContract {
 
-    BlogDto getBlogById(int id);
+    BlogDto get(int id);
     
-    List<BlogDto> getAllBlogs();
+    List<BlogDto> getFeatured();
 
-    List<BlogDto> getRecomendedBlogs(int userId);
+    List<BlogDto> getRecommendedByUserId(int id);
 
-    void registerBlog(BlogDto blog);
+    List<BlogDto> getAllByUserId(int id);
 
-    void removeBlog(int id);
+    void register(BlogDto blog);
 
-    void updateBlogName(int id, String name);
-
-    void updateBlogClosed(int id, boolean closed);
-
-    void updateBlogTheme(int id, int themeId);
+    void remove(int id);
 }

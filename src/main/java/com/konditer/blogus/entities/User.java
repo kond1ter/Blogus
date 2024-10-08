@@ -12,20 +12,32 @@ import jakarta.persistence.Table;
 @Entity @Table(name = "user", schema = "public")
 public class User extends BaseEntity {
 
+    private static final double DEFAULT_RATING = 1.0;
+
     private String name;
+    private String about;
+    private String email;
+    private String telegram;
     private LocalDate birthDate;
     private double rating;
     private List<Blog> blogs;
     private List<Comment> comments;
     private List<Subscribe> subscribes;
 
-    private static final double DEFAULT_RATING = 0.0;
-
     public User() {}
 
-    public User(String name, LocalDate birthDate) {
+    public User(
+        String name, 
+        String about,
+        String email,
+        String telegram,
+        LocalDate birthDate
+    ) {
         super();
         this.name = name;
+        this.about = about;
+        this.email = email;
+        this.telegram = telegram;
         this.birthDate = birthDate;
         this.rating = DEFAULT_RATING;
         this.blogs = new ArrayList<>();
@@ -36,6 +48,21 @@ public class User extends BaseEntity {
     @Column(name = "name")
     public String getName() {
         return this.name;
+    }
+
+    @Column(name = "about")
+    public String getAbout() {
+        return about;
+    }
+
+    @Column(name = "email")
+    public String getEmail() {
+        return email;
+    }
+
+    @Column(name = "telegram")
+    public String getTelegram() {
+        return telegram;
     }
 
     @Column(name = "birth_date")
@@ -85,5 +112,21 @@ public class User extends BaseEntity {
 
     public void setSubscribes(List<Subscribe> subscribes) {
         this.subscribes = subscribes;
+    }
+
+    public static double getDefaultRating() {
+        return DEFAULT_RATING;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setTelegram(String telegram) {
+        this.telegram = telegram;
     }
 }

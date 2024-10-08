@@ -1,6 +1,5 @@
 package com.konditer.blogus.services;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,41 +18,37 @@ public class UserService implements UserServiceContract {
     private UserRepository userRepository;
 
     @Override
-    public UserDto getUserById(int id) {
-        return mapUserEntityToUserDto(userRepository.findById(id).get());
+    public UserDto get(int id) {
+        // TODO: checks
+        return mapToDto(userRepository.findById(id).get());
     }
 
     @Override
-    public List<UserDto> getAllUsers() {
+    public List<UserDto> getAllByBlogId(int id) {
+        // TODO: implement and checks
         return userRepository.findAll()
-            .stream().map(u -> mapUserEntityToUserDto(u))
+            .stream().map(u -> mapToDto(u))
             .collect(Collectors.toList());
     }
 
     @Override
-    public void registerUser(UserDto user) {
-        userRepository.save(mapUserDtoToUserEntity(user));
+    public void register(UserDto user) {
+        // TODO: checks
+        userRepository.save(mapToEntity(user));
     }
 
     @Override
-    public void removeUser(int id) {
-        userRepository.delete(userRepository.findById(id).get());
+    public void remove(int id) {
+        // TODO: implement marking as deleted
     }
 
-    @Override
-    public void updateUserName(int id, String name) {
-        User user = userRepository.findById(id).get();
-        user.setName(name);
-        user.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-        userRepository.save(user);
+    private UserDto mapToDto(User user) {
+        // TODO: implement mapping
+        return new UserDto();
     }
 
-    private UserDto mapUserEntityToUserDto(User user) {
-        return new UserDto(user.getName(), user.getBirthDate(), user.getRating(),
-            user.getCreatedAt(), user.getUpdatedAt());
-    }
-
-    private User mapUserDtoToUserEntity(UserDto userDto) {
-        return new User(userDto.getName(), userDto.getBirthDate());
+    private User mapToEntity(UserDto userDto) {
+        // TODO: implement mapping
+        return new User();
     }
 }

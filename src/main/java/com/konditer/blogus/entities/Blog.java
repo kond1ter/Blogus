@@ -13,26 +13,32 @@ import jakarta.persistence.Table;
 @Entity @Table(name = "blog", schema = "public")
 public class Blog extends BaseEntity {
 
-    private String name;
-    private boolean closed;
-    private double rating;
+    private static final double DEFAULT_RATING = 1.0;
 
+    private String name;
+    private String description;
     private User author;
     private Theme theme;
+    private double rating;
+    private double velocity;
     private List<Subscribe> subscribes;
     private List<Post> posts;
 
-    private static final double DEFAULT_RATING = 0.0;
-
     public Blog() {}
 
-    public Blog(String name, User author, Theme theme, boolean closed) {
+    public Blog(
+        String name, 
+        String description,
+        User author, 
+        Theme theme
+    ) {
         super();
         this.name = name;
-        this.closed = closed;
-        this.rating = DEFAULT_RATING;
+        this.description = description;
         this.author = author;
         this.theme = theme;
+        this.rating = DEFAULT_RATING;
+        this.velocity = 0;
         this.subscribes = new ArrayList<>();
         this.posts = new ArrayList<>();
     }
@@ -42,14 +48,19 @@ public class Blog extends BaseEntity {
         return this.name;
     }
 
-    @Column(name = "is_private")
-    public boolean isClosed() {
-        return this.closed;
+    @Column(name = "description")
+    public String getDescription() {
+        return description;
     }
 
     @Column(name = "rating")
     public double getRating() {
         return this.rating;
+    }
+
+    @Column(name = "velocity")
+    public double getVelocity() {
+        return velocity;
     }
 
     @OneToMany(mappedBy = "blog")
@@ -78,10 +89,6 @@ public class Blog extends BaseEntity {
         this.name = name;
     }
 
-    public void setClosed(boolean closed) {
-        this.closed = closed;
-    }
-
     public void setRating(double rating) {
         this.rating = rating;
     }
@@ -100,5 +107,17 @@ public class Blog extends BaseEntity {
 
     public void setTheme(Theme theme) {
         this.theme = theme;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setVelocity(double velocity) {
+        this.velocity = velocity;
+    }
+
+    public static double getDefaultRating() {
+        return DEFAULT_RATING;
     }
 }

@@ -3,29 +3,57 @@ package com.konditer.blogus.dto;
 import java.sql.Timestamp;
 
 public class PostDto {
-
+    private int id;
     private String text;
     private String title;
+    private String blogName;
+    private String authorName;
+    private int blogId;
+    private int authorId;
     private int posReactionsAmount;
     private int negReactionsAmount;
-    private int blogId;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
-    public PostDto(String title, String text, 
-    int posReactionsAmount, int negReactionsAmount, 
-    int blogId, Timestamp createdAt, Timestamp updatedAt) {
+    public PostDto() {}
 
+    public PostDto(
+        String text,
+        String title,
+        int blogId,
+        int authorId
+    ) {
         this.text = text;
         this.title = title;
+        this.blogId = blogId;
+        this.authorId = authorId;
+    }
+
+    public PostDto(
+        int id,
+        String text, 
+        String title, 
+        String blogName,
+        String authorName,
+        int blogId, 
+        int authorId,
+        int posReactionsAmount, 
+        int negReactionsAmount, 
+        Timestamp createdAt, 
+        Timestamp updatedAt
+    ) {
+        this.id = id;
+        this.text = text;
+        this.title = title;
+        this.blogName = blogName;
+        this.authorName = authorName;
+        this.blogId = blogId;
+        this.authorId = authorId;
         this.posReactionsAmount = posReactionsAmount;
         this.negReactionsAmount = negReactionsAmount;
-        this.blogId = blogId;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
-
-    public PostDto() {}
 
     public String getText() {
         return text;
@@ -81,5 +109,37 @@ public class PostDto {
 
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getBlogName() {
+        return blogName;
+    }
+
+    public void setBlogName(String blogName) {
+        this.blogName = blogName;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public int getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(int authorId) {
+        this.authorId = authorId;
     }
 }

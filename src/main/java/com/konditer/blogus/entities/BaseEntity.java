@@ -14,10 +14,12 @@ public abstract class BaseEntity {
     private int id;
     private Timestamp createdAt;
     private Timestamp updatedAt;
+    private boolean deleted;
 
     public BaseEntity() {
         this.createdAt = new Timestamp(System.currentTimeMillis());
         this.updatedAt = new Timestamp(System.currentTimeMillis());
+        this.deleted = false;
     }
 
     @Id
@@ -32,13 +34,18 @@ public abstract class BaseEntity {
         return this.createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
-
     @Column(name = "updated_at")
     public Timestamp getUpdatedAt() {
         return this.updatedAt;
+    }
+
+    @Column(name = "is_deleted")
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
     }
 
     public void setUpdatedAt(Timestamp updatedAt) {
@@ -47,5 +54,9 @@ public abstract class BaseEntity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 }

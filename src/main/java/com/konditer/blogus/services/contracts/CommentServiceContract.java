@@ -6,13 +6,9 @@ import com.konditer.blogus.dto.CommentDto;
 
 public interface CommentServiceContract {
     
-    CommentDto getCommentById(int id);
+    List<CommentDto> getAllByPostId(int id);
 
-    List<CommentDto> getAllComments(int postId);
+    void register(CommentDto comment);
 
-    void registerComment(CommentDto comment);
-
-    void removeComment(int id);
-
-    void updateCommentText(int id, String text);
+    void remove(int id);
 }

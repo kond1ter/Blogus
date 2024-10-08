@@ -3,33 +3,62 @@ package com.konditer.blogus.dto;
 import java.sql.Timestamp;
 
 public class BlogDto {
-
+    private int id;
     private String name;
-    private boolean closed;
-    private double rating;
+    private String authorName;
+    private String themeName;
     private int authorId;
     private int themeId;
     private int postsAmount;
     private int subscribesAmount;
+    private double rating;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
     public BlogDto() {}
 
-    public BlogDto(String name, boolean closed, double rating, 
-    int authorId, int themeId, int postsAmount, int subscribesAmount,
-    Timestamp createdAt, Timestamp updatedAt) {
-        
+    public BlogDto(
+        String name,
+        int authorId,
+        int themeId
+    ) {
         this.name = name;
-        this.closed = closed;
-        this.rating = rating;
+        this.authorId = authorId;
+        this.themeId = themeId;
+    }
+
+    public BlogDto(
+        int id,
+        String name, 
+        String authorName,
+        String themeName,
+        int authorId, 
+        int themeId, 
+        int postsAmount, 
+        int subscribesAmount,
+        double rating, 
+        Timestamp createdAt,
+        Timestamp updatedAt
+    ) {
+        this.id = id;
+        this.name = name;
+        this.authorName = authorName;
+        this.themeName = themeName;
         this.authorId = authorId;
         this.themeId = themeId;
         this.postsAmount = postsAmount;
         this.subscribesAmount = subscribesAmount;
+        this.rating = rating;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.authorId = authorId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -40,20 +69,20 @@ public class BlogDto {
         this.name = name;
     }
 
-    public boolean isClosed() {
-        return closed;
+    public String getAuthorName() {
+        return authorName;
     }
 
-    public void setClosed(boolean closed) {
-        this.closed = closed;
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
     }
 
-    public double getRating() {
-        return rating;
+    public String getThemeName() {
+        return themeName;
     }
 
-    public void setRating(double rating) {
-        this.rating = rating;
+    public void setThemeName(String themeName) {
+        this.themeName = themeName;
     }
 
     public int getAuthorId() {
@@ -76,8 +105,8 @@ public class BlogDto {
         return postsAmount;
     }
 
-    public void setPostsAmount(int notesAmount) {
-        this.postsAmount = notesAmount;
+    public void setPostsAmount(int postsAmount) {
+        this.postsAmount = postsAmount;
     }
 
     public int getSubscribesAmount() {
@@ -86,6 +115,14 @@ public class BlogDto {
 
     public void setSubscribesAmount(int subscribesAmount) {
         this.subscribesAmount = subscribesAmount;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 
     public Timestamp getCreatedAt() {
